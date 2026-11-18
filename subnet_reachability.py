@@ -66,7 +66,7 @@ def is_mismatch(classification, auto_ip):
         return True
     elif classification == "private-egress" and auto_ip is True:
         return True
-    elif classification == "private-egree" and auto_ip is False:
+    elif classification == "private-egress" and auto_ip is False:
         return False
     elif classification == "isolated" and auto_ip is True:
         return True
