@@ -1,0 +1,8 @@
+# editor temporary files
+*.edit
+
+# Python cache
+__pycache__/
+
+# live AWS data (contains the account ID)
+*_live.json
