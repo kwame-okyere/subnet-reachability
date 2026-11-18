@@ -90,4 +90,4 @@ for subnet in subnets:
     auto_ip = subnet["MapPublicIpOnLaunch"]
     mismatch = is_mismatch(classification, auto_ip)
     
-    print(f"{subnet_id}  {rt['RouteTableId']}  {source}  {target}  {classification} auto_ip={auto_ip}  mismatch={mismatch}")
+    print(f"{subnet_id}  {rt['RouteTableId']}  {source}  {target}  {classification}  auto_ip={auto_ip}  mismatch={mismatch}")
