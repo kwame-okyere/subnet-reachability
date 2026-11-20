@@ -72,7 +72,9 @@ def is_mismatch(classification, auto_ip):
         return True
     elif classification == "isolated" and auto_ip is False:
         return False
-    
+
+
+mismatch_count = 0    
 main_by_vpc = build_main_rt_by_vpc(rts)  
 subnet_rt_lookup = build_subnet_rt_lookup(rts)
 print(f"Explicit associations: {len(subnet_rt_lookup)}")
@@ -90,4 +92,15 @@ for subnet in subnets:
     auto_ip = subnet["MapPublicIpOnLaunch"]
     mismatch = is_mismatch(classification, auto_ip)
     
+    if mismatch_count is True:
+        mismatch_count += 1
     print(f"{subnet_id}  {rt['RouteTableId']}  {source}  {target}  {classification}  auto_ip={auto_ip}  mismatch={mismatch}")
+    
+print(f"Mismatches: {mismatch_count}")
+if mismatch_count > 0:
+    print(f"FAIL")
+    sys.exit(1)
+else:
+    print(f"PASS")
+
+    
