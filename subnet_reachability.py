@@ -89,7 +89,7 @@ for subnet in subnets:
     auto_ip = subnet["MapPublicIpOnLaunch"]
     mismatch = is_mismatch(classification, auto_ip)
     
-    if mismatch_count is True:
+    if mismatch is True:
         mismatch_count += 1
     print(f"{subnet_id}  {rt['RouteTableId']}  {source}  {target}  {classification}  auto_ip={auto_ip}  mismatch={mismatch}")
     
