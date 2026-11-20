@@ -5,6 +5,13 @@ import sys
 SUBNET_FILE = "subnets_live.json" 
 RTS_FILE = "rts_live.json"
 
+if len(sys.argv) == 3:
+    SUBNET_FILE = sys.argv[1]
+    RTS_FILE = sys.argv[2]
+elif len(sys.argv) != 1:
+    print("Usage: python3 subnet_reachability.py [SUBNET_FILE RTS_FILE]")
+    sys.exit(1)
+
 #try loading the files and if there are any errors print a message and exit
 try:
     #reading the SUBNET_FILE and loading it into subnets and print what was
