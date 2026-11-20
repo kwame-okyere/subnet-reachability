@@ -1,0 +1,32 @@
+[
+  {
+    "RouteTableId": "rtb-main-a", "VpcId": "vpc-a",
+    "Associations": [{"Main": true}],
+    "Routes": [
+      {"DestinationCidrBlock": "10.0.0.0/16", "GatewayId": "local"},
+      {"DestinationCidrBlock": "0.0.0.0/0",   "GatewayId": "igw-a"}
+    ]
+  },
+  {
+    "RouteTableId": "rtb-private-a", "VpcId": "vpc-a",
+    "Associations": [{"Main": false, "SubnetId": "subnet-a-priv"}],
+    "Routes": [
+      {"DestinationCidrBlock": "10.0.0.0/16", "GatewayId": "local"},
+      {"DestinationCidrBlock": "0.0.0.0/0",   "NatGatewayId": "nat-a"}
+    ]
+  },
+  {
+    "RouteTableId": "rtb-isolated-a", "VpcId": "vpc-a",
+    "Associations": [{"Main": false, "SubnetId": "subnet-a-iso"}],
+    "Routes": [
+      {"DestinationCidrBlock": "10.0.0.0/16", "GatewayId": "local"}
+    ]
+  },
+  {
+    "RouteTableId": "rtb-main-b", "VpcId": "vpc-b",
+    "Associations": [{"Main": true}],
+    "Routes": [
+      {"DestinationCidrBlock": "10.1.0.0/16", "GatewayId": "local"}
+    ]
+  }
+]

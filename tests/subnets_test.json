@@ -1,0 +1,7 @@
+[
+  {"SubnetId": "subnet-a-pub",      "VpcId": "vpc-a", "MapPublicIpOnLaunch": true},
+  {"SubnetId": "subnet-a-pub-noip", "VpcId": "vpc-a", "MapPublicIpOnLaunch": false},
+  {"SubnetId": "subnet-a-priv",     "VpcId": "vpc-a", "MapPublicIpOnLaunch": false},
+  {"SubnetId": "subnet-a-iso",      "VpcId": "vpc-a", "MapPublicIpOnLaunch": true},
+  {"SubnetId": "subnet-b-1",        "VpcId": "vpc-b", "MapPublicIpOnLaunch": false}
+]
