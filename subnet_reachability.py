@@ -60,18 +60,8 @@ def classify_subnet(target):
    
    
 def is_mismatch(classification, auto_ip):
-    if classification == "public" and auto_ip is True:
-        return False
-    elif classification == "public" and auto_ip is False:
-        return True
-    elif classification == "private-egress" and auto_ip is True:
-        return True
-    elif classification == "private-egress" and auto_ip is False:
-        return False
-    elif classification == "isolated" and auto_ip is True:
-        return True
-    elif classification == "isolated" and auto_ip is False:
-        return False
+    is_public = classification == "public"
+    return is_public != auto_ip
 
 
 mismatch_count = 0    
