@@ -1,4 +1,4 @@
-# Subnet reachability check
+# AWS subnet reachability check
 
 I wrote this to answer a simple question: which of my AWS subnets are actually public?
 
