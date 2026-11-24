@@ -5,6 +5,13 @@ import sys
 SUBNET_FILE = "subnets_live.json" 
 RTS_FILE = "rts_live.json"
 
+if len(sys.argv) == 3:
+    SUBNET_FILE = sys.argv[1]
+    RTS_FILE = sys.argv[2]
+elif len(sys.argv) != 1:
+    print("Usage: python3 subnet_reachability.py [SUBNET_FILE RTS_FILE]")
+    sys.exit(1)
+
 #try loading the files and if there are any errors print a message and exit
 try:
     #reading the SUBNET_FILE and loading it into subnets and print what was
@@ -60,19 +67,11 @@ def classify_subnet(target):
    
    
 def is_mismatch(classification, auto_ip):
-    if classification == "public" and auto_ip is True:
-        return False
-    elif classification == "public" and auto_ip is False:
-        return True
-    elif classification == "private-egress" and auto_ip is True:
-        return True
-    elif classification == "private-egress" and auto_ip is False:
-        return False
-    elif classification == "isolated" and auto_ip is True:
-        return True
-    elif classification == "isolated" and auto_ip is False:
-        return False
-    
+    is_public = classification == "public"
+    return is_public != auto_ip
+
+
+mismatch_count = 0    
 main_by_vpc = build_main_rt_by_vpc(rts)  
 subnet_rt_lookup = build_subnet_rt_lookup(rts)
 print(f"Explicit associations: {len(subnet_rt_lookup)}")
@@ -90,4 +89,15 @@ for subnet in subnets:
     auto_ip = subnet["MapPublicIpOnLaunch"]
     mismatch = is_mismatch(classification, auto_ip)
     
+    if mismatch is True:
+        mismatch_count += 1
     print(f"{subnet_id}  {rt['RouteTableId']}  {source}  {target}  {classification}  auto_ip={auto_ip}  mismatch={mismatch}")
+    
+print(f"Mismatches: {mismatch_count}")
+if mismatch_count > 0:
+    print(f"FAIL")
+    sys.exit(1)
+else:
+    print(f"PASS")
+
+    
