@@ -1,6 +1,4 @@
-
 # AWS subnet reachability checker
-
 
 I wrote this to answer a simple question: which of my AWS subnets are actually public?
 
