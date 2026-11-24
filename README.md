@@ -45,6 +45,14 @@ python3 subnet_reachability.py
 
 The *_live.json files are in .gitignore because they contain the account ID.
 
+You can also point it at other data by giving the subnets file and the route tables file, in that order:
+
+```
+python3 subnet_reachability.py tests/subnets_test.json tests/rts_test.json
+```
+
+If you give one file name, or more than two, it prints how to use it and exits with code 1.
+
 ## Example output
 
 This is from the default VPC in eu-west-2, which has 4 subnets and no explicit associations:
@@ -59,13 +67,25 @@ subnet-0d2b1249f4f2e592e  rtb-0c33e50646e6333b1  main  igw-0dfed8ff482044fa3  pu
 subnet-00813ec961b881dac  rtb-0c33e50646e6333b1  main  igw-0dfed8ff482044fa3  public  auto_ip=True  mismatch=False
 ```
 
+
+## Testing
+The `tests/` folder has made-up data (no real account details) covering every case the script handles: a public subnet, a NAT subnet, an isolated subnet, explicit route table associations, a second VPC, and two mismatches.
+
+Running the script on it should report `Mismatches: 2`, print `FAIL` and exit with code 1. With no mismatches it prints `PASS` and exits with 0, so a CI pipeline can use the exit code to pass or fail a change.
+
+This test data found a bug that my live account couldn't show: the script flagged mismatches correctly but the count stayed at zero.
+
+
 ## Next steps
 
-- Count the mismatches and exit with code 1 if there are any, so it can fail a CI pipeline.
-- Add a test data file with a NAT subnet, an isolated subnet, an explicit association, a second VPC and a mismatch. My live account only has public subnets, so right now most of the code paths haven't been tested.
+- Handle AWS API errors properly (for example missing permissions) instead of crashing.
+- Run the test data automatically on every pull request.
+
+
 
 ## What I learned
 
 - A subnet is public because of its route table, not its name.
 - Forgetting a route table association doesn't cause an error. The subnet just falls back to the main route table, which is why it's easy to miss.
 - My first version of the main-route-table lookup only worked with one VPC. It looked fine on my account and would have been wrong anywhere with more than one.
+
