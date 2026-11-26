@@ -98,6 +98,6 @@ if mismatch_count > 0:
     print(f"FAIL")
     sys.exit(1)
 else:
-    print(f"PAS")
+    print(f"PASS")
 
     
